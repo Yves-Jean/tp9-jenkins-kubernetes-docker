@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-flask-service
+  namespace: devops-tools
+spec:
+  ports:
+    - name: microport
+      port: 5000
+      nodePort: 31000
+  selector:
+    app: hello-flask
+  type: NodePort

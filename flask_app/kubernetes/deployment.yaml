@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-flask-deployment
+  namespace: devops-tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-flask
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hello-flask
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      serviceAccountName: jenkins-admin
+      containers:
+        - name: hello-flask
+          image: jeanpcr94/hello-flask:latest
+          ports:
+            - containerPort: 5000
+              name: microport
